@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AuthGuard from "./AuthGuard";
+import Login from "../view/pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -18,16 +19,16 @@ const router = createBrowserRouter([
   },
 
   {
-    element: <AuthGuard isPrivate={true} />,
+    element: <AuthGuard isPrivate={false} />,
     path: "/",
     children: [
       {
-        element: <h1>login</h1>,
         path: "login",
+        element: <Login />,
       },
       {
-        element: <h1>register</h1>,
         path: "register",
+        element: <h1>register</h1>,
       },
     ],
   },
