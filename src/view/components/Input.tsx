@@ -1,22 +1,53 @@
 import type { ComponentProps } from "react";
-import { tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 import type React from "react";
 
-interface InputProps extends ComponentProps<"input"> {
+interface InputProps
+  extends ComponentProps<"input">,
+    VariantProps<typeof inputStyles> {
   placeholder: string;
   id: string;
   icon?: React.ReactNode;
   eyeIcon?: React.ReactNode;
+  errorMessage?: string;
 }
 
-const InputStyles = tv({
-  base: "bg-white border border-[#ADB5BD] px-3 py-2.5 rounded-lg w-full pl-8 text-xs font-medium peer group focus:py-2.5 transition-all placeholder-shown:py-2 focus:outline-none focus:border focus:border-[#00ADB5]",
+const inputStyles = tv({
+  base: "bg-white border px-3 py-2.5 rounded-lg w-full pl-8 text-xs font-medium peer group focus:py-2.5 transition-all placeholder-shown:py-2 focus:outline-none",
+  variants: {
+    mode: {
+      normal: "focus:border-[#00ADB5] border-[#ADB5BD]",
+      invalid: "focus:border-[#FF5858] border-[#C92A3A]",
+    },
+  },
+  defaultVariants: {
+    mode: "normal",
+  },
 });
 
-const Input = ({ placeholder, id, icon, eyeIcon, ...props }: InputProps) => {
+const Input = ({
+  placeholder,
+  id,
+  icon,
+  eyeIcon,
+  errorMessage,
+  mode,
+  ...props
+}: InputProps) => {
   return (
     <div className="w-full relative">
-      <input placeholder=" " id={id} {...props} className={InputStyles()} />
+      <input
+        placeholder=" "
+        id={id}
+        {...props}
+        className={inputStyles({ mode })}
+      />
+      {errorMessage && (
+        <p className="text-left pl-2 pt-1 text-xs text-red-600">
+          {errorMessage}
+        </p>
+      )}
+
       <div className="absolute top-[5px] right-2">{eyeIcon}</div>
       <div className="absolute top-[12px] left-3  transition-all">{icon}</div>
       <label

@@ -10,9 +10,11 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import useLoginController from "../../hooks/useLoginController";
+import useRegisterController from "../../hooks/useRegisterController";
 
 const Register = () => {
   const { showPassword, togglePasswordVisibility } = useLoginController();
+  const { register, handleSubmit, errors } = useRegisterController();
 
   return (
     <>
@@ -30,23 +32,35 @@ const Register = () => {
         <div className="bg-white max-w-[400px] w-full rounded-xl shadow-lg">
           <div className="px-6 py-6 w-full space-y-4 text-center">
             <p className="text-lg">Criar nova conta</p>
-            <div className="w-full flex flex-col gap-4 ">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full flex flex-col gap-4 "
+            >
               <Input
                 placeholder="Name"
                 id="Name"
                 icon={<UserIcon className="h-3 w-3 text-[#5e666f]" />}
+                {...register("name")}
+                errorMessage={errors?.name?.message}
+                mode={errors?.name && "invalid"}
               />
               <Input
                 type="email"
                 placeholder="Email"
                 id="email"
                 icon={<EmailIcon className="h-3 w-3 text-[#5e666f]" />}
+                {...register("email")}
+                errorMessage={errors?.email?.message}
+                mode={errors?.email && "invalid"}
               />
               <Input
                 type={showPassword ? "password" : "none"}
                 placeholder="Password"
                 id="password"
                 icon={<LockIcon className="h-3 w-3 text-[#5e666f]" />}
+                {...register("password")}
+                errorMessage={errors?.password?.message}
+                mode={errors?.password && "invalid"}
                 eyeIcon={
                   showPassword ? (
                     <EyeOffIcon
@@ -63,7 +77,7 @@ const Register = () => {
               />
 
               <Button text="Log In" className="mt-4" />
-            </div>
+            </form>
 
             <p className="font-base text-sm text-[#51575d]">
               Ja possui conta?{" "}
