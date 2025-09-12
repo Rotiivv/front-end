@@ -11,7 +11,13 @@ import { Link } from "react-router-dom";
 import useLoginController from "../../hooks/useLoginController";
 
 const Login = () => {
-  const { showPassword, togglePasswordVisibility } = useLoginController();
+  const {
+    showPassword,
+    togglePasswordVisibility,
+    register,
+    handleSubmit,
+    errors,
+  } = useLoginController();
 
   return (
     <>
@@ -29,18 +35,27 @@ const Login = () => {
         <div className="bg-white max-w-[400px] w-full rounded-xl shadow-lg">
           <div className="px-6 py-6 w-full space-y-4 text-center">
             <p className="text-lg">Entrar na sua conta</p>
-            <div className="w-full flex flex-col gap-4 ">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full flex flex-col gap-4 "
+            >
               <Input
                 type="email"
                 placeholder="Email"
                 id="email"
                 icon={<EmailIcon className="h-3 w-3 text-[#5e666f]" />}
+                {...register("email")}
+                errorMessage={errors?.email?.message}
+                mode={errors?.email && "invalid"}
               />
               <Input
                 type={showPassword ? "password" : "none"}
                 placeholder="Password"
                 id="password"
                 icon={<LockIcon className="h-3 w-3 text-[#5e666f]" />}
+                {...register("password")}
+                errorMessage={errors?.password?.message}
+                mode={errors?.password && "invalid"}
                 eyeIcon={
                   showPassword ? (
                     <EyeOffIcon
@@ -56,8 +71,8 @@ const Login = () => {
                 }
               />
 
-              <Button text="Log In" className="mt-4" />
-            </div>
+              <Button type="submit" text="Log In" className="mt-4" />
+            </form>
 
             <p className="font-base text-sm text-[#51575d]">
               Nao tem conta?{" "}

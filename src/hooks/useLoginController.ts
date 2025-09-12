@@ -1,4 +1,10 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import type z from "zod";
+import loginSchema from "../app/schemas/login.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type FormData = z.infer<typeof loginSchema>;
 
 const useLoginController = () => {
   const [showPassword, setShowPassord] = useState(true);
@@ -9,7 +15,25 @@ const useLoginController = () => {
     return setShowPassord(false);
   };
 
-  return { togglePasswordVisibility, showPassword };
+  const {
+    register,
+    handleSubmit: hookFormHandleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const handleSubmit = hookFormHandleSubmit((data) => {
+    //
+  });
+
+  return {
+    togglePasswordVisibility,
+    showPassword,
+    register,
+    handleSubmit,
+    errors,
+  };
 };
 
 export default useLoginController;
