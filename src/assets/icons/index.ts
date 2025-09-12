@@ -4,5 +4,14 @@ import EmailIcon from "./Email.svg?react";
 import EyeIcon from "./Eye.svg?react";
 import EyeOffIcon from "./Eye-off.svg?react";
 import UserIcon from "./User.svg?react";
+import LoaderIcon from "./Loader.svg?react";
 
-export { CheckIcon, LockIcon, EmailIcon, EyeIcon, EyeOffIcon, UserIcon };
+export {
+  CheckIcon,
+  LockIcon,
+  EmailIcon,
+  EyeIcon,
+  EyeOffIcon,
+  UserIcon,
+  LoaderIcon,
+};

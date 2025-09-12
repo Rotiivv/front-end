@@ -14,7 +14,7 @@ import useRegisterController from "../../hooks/useRegisterController";
 
 const Register = () => {
   const { showPassword, togglePasswordVisibility } = useLoginController();
-  const { register, handleSubmit, errors } = useRegisterController();
+  const { register, handleSubmit, errors, isPending } = useRegisterController();
 
   return (
     <>
@@ -76,7 +76,7 @@ const Register = () => {
                 }
               />
 
-              <Button text="Log In" className="mt-4" />
+              <Button text="Log In" className="mt-4" isPending={isPending} />
             </form>
 
             <p className="font-base text-sm text-[#51575d]">

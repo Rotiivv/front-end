@@ -6,7 +6,7 @@ import Register from "../view/pages/Register";
 const router = createBrowserRouter([
   {
     element: <AuthGuard isPrivate={true} />,
-    path: "/",
+    path: "/dashboard",
     children: [
       {
         index: true,

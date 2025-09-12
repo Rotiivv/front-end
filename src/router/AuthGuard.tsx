@@ -5,10 +5,10 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = ({ isPrivate }: AuthGuardProps) => {
-  const signedIn = false; //localStorage.getItem("token");
+  const signedIn = !!localStorage.getItem("accessToken");
 
   if (!signedIn && isPrivate) return <Navigate to="/login" replace />;
-  if (signedIn && !isPrivate) return <Navigate to="/" replace />;
+  if (signedIn && !isPrivate) return <Navigate to="/dashboard" replace />;
 
   return <Outlet />;
 };

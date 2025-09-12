@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import type z from "zod";
 import registerSchema from "../app/schemas/register.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useSignup from "../app/hooks/useSignup";
 
 type FormData = z.infer<typeof registerSchema>;
 
@@ -14,12 +15,13 @@ const useRegisterController = () => {
     resolver: zodResolver(registerSchema),
   });
 
+  const { mutateAsync, isPending } = useSignup();
+
   const handleSubmit = hookFormHandleSubmit((data) => {
-    //
-    console.log(data);
+    mutateAsync(data);
   });
 
-  return { handleSubmit, register, errors };
+  return { handleSubmit, register, errors, isPending };
 };
 
 export default useRegisterController;
