@@ -15,10 +15,10 @@ const useRegisterController = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const { mutateAsync, isPending } = useSignup();
+  const { mutate, isPending } = useSignup();
 
   const handleSubmit = hookFormHandleSubmit((data) => {
-    mutateAsync(data);
+    mutate(data);
   });
 
   return { handleSubmit, register, errors, isPending };

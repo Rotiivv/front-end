@@ -17,6 +17,7 @@ const Login = () => {
     register,
     handleSubmit,
     errors,
+    isPending,
   } = useLoginController();
 
   return (
@@ -71,7 +72,12 @@ const Login = () => {
                 }
               />
 
-              <Button type="submit" text="Log In" className="mt-4" />
+              <Button
+                isPending={isPending}
+                type="submit"
+                text="Log In"
+                className="mt-4"
+              />
             </form>
 
             <p className="font-base text-sm text-[#51575d]">

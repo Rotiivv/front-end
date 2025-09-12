@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import type z from "zod";
 import loginSchema from "../app/schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useSignin from "../app/hooks/useSignin";
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -23,8 +24,10 @@ const useLoginController = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const { mutate, isPending } = useSignin();
+
   const handleSubmit = hookFormHandleSubmit((data) => {
-    //
+    mutate(data);
   });
 
   return {
@@ -33,6 +36,7 @@ const useLoginController = () => {
     register,
     handleSubmit,
     errors,
+    isPending,
   };
 };
 
