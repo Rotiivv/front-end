@@ -24,7 +24,7 @@ const useLoginController = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { mutate, isPending } = useSignin();
+  const { mutate, isPending, error: errorMutate } = useSignin();
 
   const handleSubmit = hookFormHandleSubmit((data) => {
     mutate(data);
@@ -36,6 +36,7 @@ const useLoginController = () => {
     register,
     handleSubmit,
     errors,
+    errorMutate,
     isPending,
   };
 };

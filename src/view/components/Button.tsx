@@ -11,12 +11,12 @@ interface ButtonProps extends ComponentProps<"button"> {
 const Button = ({ text, className, isPending, ...props }: ButtonProps) => {
   const buttonStyle = tv({
     base: `bg-[#00ADB5] border-1 border-[#00d0d9] transition-all hover:-translate-y-0.5
-    w-full text-white font-semibold py-1.5 active:bg-[#00848b] rounded-lg flex gap-1 justify-center items-center ${className}`,
+    w-full text-white font-semibold py-1.5 active:bg-[#00848b] rounded-lg flex gap-1 justify-center items-center disabled:cursor-not-allowed disabled:bg-[#74cdd1] ${className}`,
   });
   return (
     <>
       <div className="w-full">
-        <button className={buttonStyle()} {...props}>
+        <button className={buttonStyle()} {...props} disabled={isPending}>
           {isPending && <LoaderIcon className="animate-spin" />}
           {text}
         </button>

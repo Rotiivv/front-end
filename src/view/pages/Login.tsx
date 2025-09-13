@@ -17,6 +17,7 @@ const Login = () => {
     register,
     handleSubmit,
     errors,
+    errorMutate,
     isPending,
   } = useLoginController();
 
@@ -47,7 +48,10 @@ const Login = () => {
                 icon={<EmailIcon className="h-3 w-3 text-[#5e666f]" />}
                 {...register("email")}
                 errorMessage={errors?.email?.message}
-                mode={errors?.email && "invalid"}
+                mode={
+                  (errors?.email && "invalid") ||
+                  (errorMutate ? "invalid" : undefined)
+                }
               />
               <Input
                 type={showPassword ? "password" : "none"}
@@ -56,7 +60,10 @@ const Login = () => {
                 icon={<LockIcon className="h-3 w-3 text-[#5e666f]" />}
                 {...register("password")}
                 errorMessage={errors?.password?.message}
-                mode={errors?.password && "invalid"}
+                mode={
+                  (errors?.password && "invalid") ||
+                  (errorMutate ? "invalid" : undefined)
+                }
                 eyeIcon={
                   showPassword ? (
                     <EyeOffIcon
@@ -71,6 +78,12 @@ const Login = () => {
                   )
                 }
               />
+
+              {errorMutate && Object.keys(errors).length === 0 && (
+                <p className="text-left text-red-500 pl-1.5 text-xs mt-[-10px] mb-[-15px]">
+                  Credenciais inválidas.
+                </p>
+              )}
 
               <Button
                 isPending={isPending}
