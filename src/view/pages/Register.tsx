@@ -14,7 +14,8 @@ import useRegisterController from "../../hooks/useRegisterController";
 
 const Register = () => {
   const { showPassword, togglePasswordVisibility } = useLoginController();
-  const { register, handleSubmit, errors, isPending } = useRegisterController();
+  const { register, handleSubmit, errors, errorMutate, isPending } =
+    useRegisterController();
 
   return (
     <>
@@ -75,6 +76,12 @@ const Register = () => {
                   )
                 }
               />
+
+              {errorMutate && Object.keys(errors).length === 0 && (
+                <p className="text-left text-red-500 pl-1.5 text-xs mt-[-10px] mb-[-15px]">
+                  Este e-mail já está em uso.
+                </p>
+              )}
 
               <Button text="Log In" className="mt-4" isPending={isPending} />
             </form>
