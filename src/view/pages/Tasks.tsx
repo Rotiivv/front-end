@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import SelectInput from "../components/SelectInput";
 import ViewSelector from "../components/ViewSelector";
 import TasksFlexView from "../components/TasksFlexView";
+import TasksGridView from "../components/TasksGridView";
 
 const Tasks = () => {
   const [state, setState] = useState("flex");
@@ -58,7 +59,8 @@ const Tasks = () => {
           <ViewSelector mode={state} funcChangeState={setState} />
         </div>
 
-        <TasksFlexView />
+        <TasksGridView />
+        {/* <TasksFlexView /> */}
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import DangerIcon from "./Danger.svg?react";
 import TrashIcon from "./Trash.svg?react";
 import DetailsIcon from "./Details.svg?react";
 import SpinIcon from "./Spin.svg?react";
+import PlayIcon from "./Play.svg?react";
 
 export {
   CheckBoxIcon,
@@ -34,4 +35,5 @@ export {
   TrashIcon,
   DetailsIcon,
   SpinIcon,
+  PlayIcon,
 };
