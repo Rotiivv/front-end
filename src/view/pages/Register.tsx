@@ -1,12 +1,12 @@
 import {
-  CheckIcon,
+  CheckBoxIcon,
   EmailIcon,
   EyeIcon,
   EyeOffIcon,
   LockIcon,
   UserIcon,
 } from "../../assets/icons";
-import Input from "../components/Input";
+import Input from "../components/AuthInput";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import useLoginController from "../../hooks/useLoginController";
@@ -22,7 +22,7 @@ const Register = () => {
       <div className="bg-transparent flex flex-col justify-center items-center w-full h-full p-4 gap-6">
         <div className="flex items-center flex-col gap-3 text-center">
           <div className="bg-[#00ADB5] p-4 rounded-xl shadow-2xl">
-            <CheckIcon className="text-white" />
+            <CheckBoxIcon className="text-white" />
           </div>
           <h1 className="font-semibold text-xl">Crie sua conta.</h1>
 

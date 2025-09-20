@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AuthGuard from "./AuthGuard";
 import Login from "../view/pages/Login";
 import Register from "../view/pages/Register";
+import Tasks from "../view/pages/Tasks";
 
 const router = createBrowserRouter([
   {
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>Dashboard</h1>,
+        element: <Tasks />,
       },
       {
         path: "tasks",
