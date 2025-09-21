@@ -40,20 +40,16 @@ const taskStatusItemStyle = tv({
 const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
   const [statusState, setStatusState] = useState(status);
 
-  const handleClickTask = () => {
+  const handleTaskClick = () => {
     if (statusState === "notStarted") {
       setStatusState("inProgress");
-      console.log(statusState);
     }
     if (statusState === "inProgress") {
       setStatusState("done");
-      console.log(statusState);
     }
     if (statusState === "done") {
       setStatusState("notStarted");
-      console.log(statusState);
     }
-    console.log("estou aqui");
   };
 
   const handleTrashClick = (
@@ -73,10 +69,8 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
       <label
         htmlFor={id}
         className="w-full h-full flex items-start gap-2.5 group select-none"
-        onClick={handleClickTask}
+        onClick={handleTaskClick}
       >
-        <input type="checkbox" className="hidden" id={id} />
-
         <span className={taskStatusItemStyle({ mode: statusState })}>
           {(statusState === "inProgress" && (
             <SpinIcon className="text-white animate-spin h-3 w-3" />

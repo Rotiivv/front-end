@@ -1,4 +1,5 @@
 import CheckBoxIcon from "./CheckBox.svg?react";
+import SaveIcon from "./Save.svg?react";
 import LockIcon from "./Lock.svg?react";
 import EmailIcon from "./Email.svg?react";
 import EyeIcon from "./Eye.svg?react";
@@ -16,6 +17,9 @@ import TrashIcon from "./Trash.svg?react";
 import DetailsIcon from "./Details.svg?react";
 import SpinIcon from "./Spin.svg?react";
 import PlayIcon from "./Play.svg?react";
+import ArrowIcon from "./Arrow.svg?react";
+import FormIcon from "./Form.svg?react";
+import LabelIcon from "./Label.svg?react";
 
 export {
   CheckBoxIcon,
@@ -36,4 +40,8 @@ export {
   DetailsIcon,
   SpinIcon,
   PlayIcon,
+  FormIcon,
+  ArrowIcon,
+  LabelIcon,
+  SaveIcon,
 };

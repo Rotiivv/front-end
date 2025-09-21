@@ -24,11 +24,10 @@ const ViewSelector = ({ mode, funcChangeState }: ViewSelectorProps) => {
   const handleClick = () => {
     if (mode === "flex") {
       funcChangeState("grid");
-      return "grid";
+      return;
     }
 
     funcChangeState("flex");
-    return "flex";
   };
 
   return (

@@ -36,7 +36,7 @@ const SelectInput = ({ placeholder, options }: SelectInputProps) => {
         {<ChavronIcon className="h-3 w-3 text-gray-400" />}
       </button>
       {isOpen && (
-        <div className=" bg-white shadow-sm rounded-md w-full flex-col absolute top-8 border border-[#dbdbdb] p-1">
+        <div className=" bg-white shadow-sm rounded-md w-full flex-col absolute top-8 z-10 border border-[#dbdbdb] p-1">
           {options.map((option) => (
             <button
               key={option.value}

@@ -90,6 +90,7 @@ const Login = () => {
                 type="submit"
                 text="Log In"
                 className="mt-4"
+                screen="auth"
               />
             </form>
 

@@ -3,19 +3,24 @@ import AuthGuard from "./AuthGuard";
 import Login from "../view/pages/Login";
 import Register from "../view/pages/Register";
 import Tasks from "../view/pages/Tasks";
+import AddTask from "../view/pages/AddTask";
 
 const router = createBrowserRouter([
   {
     element: <AuthGuard isPrivate={true} />,
-    path: "/dashboard",
+    path: "/",
     children: [
       {
-        index: true,
-        element: <Tasks />,
+        path: "dashboard",
+        element: <h1>Dashboard</h1>,
       },
       {
         path: "tasks",
-        element: <h1>Todas as tarefas</h1>,
+        element: <Tasks />,
+      },
+      {
+        path: "tasks/new",
+        element: <AddTask />,
       },
     ],
   },

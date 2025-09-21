@@ -83,7 +83,12 @@ const Register = () => {
                 </p>
               )}
 
-              <Button text="Log In" className="mt-4" isPending={isPending} />
+              <Button
+                text="Log In"
+                className="mt-4"
+                isPending={isPending}
+                screen="auth"
+              />
             </form>
 
             <p className="font-base text-sm text-[#51575d]">

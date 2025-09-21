@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { MenuIcon, SearchIcon } from "../../assets/icons";
-import Button from "../components/Button";
+import { SearchIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import SelectInput from "../components/SelectInput";
 import ViewSelector from "../components/ViewSelector";
 import TasksFlexView from "../components/TasksFlexView";
 import TasksGridView from "../components/TasksGridView";
+import { Link } from "react-router-dom";
+import Menu from "../components/Menu";
 
 const Tasks = () => {
   const [state, setState] = useState("flex");
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">
-      <div
-        className="bg-white w-fit p-2 rounded-lg border border-[#e0e1e4] hover:bg-[#e7e7e7]
-       transition-all"
-      >
-        <MenuIcon className="w-4 h-3" />
-      </div>
+      <Menu />
 
       <div className="w-full space-y-5.5">
         <div>
@@ -26,13 +22,21 @@ const Tasks = () => {
             Gerencie todas as suas tarefas em um só lugar
           </p>
 
-          <Button text="Nova Tarefa" className="mt-3" screen="tasks" />
+          <Link
+            className="bg-[#00ADB5] border-1 border-[#00d0d9] transition-all 
+            w-full text-white font-semibold active:bg-[#00848b] rounded-lg flex gap-1 justify-center items-center disabled:cursor-not-allowed disabled:bg-[#74cdd1] py-0.5 mt-3"
+            to={"/tasks/new"}
+          >
+            Nova Tarefa
+          </Link>
+          {/* <Button text="Nova Tarefa" className="mt-3" screen="tasks" /> */}
         </div>
 
         <div className="bg-white rounded-lg shadow-sm w-full p-3.5 space-y-3">
           <Input
             placeholder="Buscar tarefas..."
             icon={<SearchIcon className="w-4 h-4 text-[#8b8b8b]" />}
+            screen="tasks"
           />
 
           <div className="w-full flex gap-2 max-w-[260px]">
@@ -59,8 +63,7 @@ const Tasks = () => {
           <ViewSelector mode={state} funcChangeState={setState} />
         </div>
 
-        <TasksGridView />
-        {/* <TasksFlexView /> */}
+        {state === "flex" ? <TasksFlexView /> : <TasksGridView />}
       </div>
     </div>
   );

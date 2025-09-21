@@ -1,12 +1,13 @@
 import type { ComponentProps } from "react";
 import { tv } from "tailwind-variants";
-import { LoaderIcon } from "../../assets/icons";
+import { LoaderIcon, SaveIcon } from "../../assets/icons";
 
 interface ButtonProps extends ComponentProps<"button"> {
   text: string;
+  icon?: React.ReactNode;
   className?: string;
   isPending?: boolean;
-  screen?: "auth" | "tasks";
+  screen: "auth" | "addTasks";
 }
 
 const Button = ({
@@ -17,12 +18,12 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   const buttonStyle = tv({
-    base: `bg-[#00ADB5] border-1 border-[#00d0d9] transition-all hover:-translate-y-0.5
-    w-full text-white font-semibold active:bg-[#00848b] rounded-lg flex gap-1 justify-center items-center disabled:cursor-not-allowed disabled:bg-[#74cdd1] ${className}`,
+    base: `bg-[#00ADB5] transition-all 
+    w-full text-white font-semibold active:bg-[#00848b]  flex gap-1 justify-center items-center disabled:cursor-not-allowed disabled:bg-[#74cdd1] ${className}`,
     variants: {
       screen: {
-        auth: "py-1.5",
-        tasks: "py-0.5",
+        auth: "py-1.5 hover:-translate-y-0.5 rounded-lg border-[#00d0d9 border-1",
+        addTasks: "py-1.25 text-xs rounded-md px-2 w-fit",
       },
     },
   });
@@ -35,7 +36,11 @@ const Button = ({
           {...props}
           disabled={isPending}
         >
-          {isPending && <LoaderIcon className="animate-spin" />}
+          {isPending ? (
+            <LoaderIcon className="animate-spin" />
+          ) : (
+            <SaveIcon className="h-3 ml-[-5px]" />
+          )}
           {text}
         </button>
       </div>
