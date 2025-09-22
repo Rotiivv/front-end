@@ -41,21 +41,21 @@ const Tasks = () => {
 
           <div className="w-full flex gap-2 max-w-[260px]">
             <SelectInput
-              placeholder="Todos os status"
+              placeholder={{ value: "Todos os status", enum: "" }}
               options={[
-                { value: "Todos os status" },
-                { value: "Nao inciadas" },
-                { value: "Em progresso" },
-                { value: "Concluidas" },
+                { value: "Todos os status", enum: "" },
+                { value: "Nao inciadas", enum: "NOT_STARTED" },
+                { value: "Em progresso", enum: "IN_PROGRESS" },
+                { value: "Concluidas", enum: "DONE" },
               ]}
             />
             <SelectInput
-              placeholder="Todas"
+              placeholder={{ value: "Todas", enum: "" }}
               options={[
-                { value: "Todas" },
-                { value: "Alta" },
-                { value: "Media" },
-                { value: "Baixa" },
+                { value: "Todas", enum: "" },
+                { value: "Baixa", enum: "LOW" },
+                { value: "Media", enum: "MEDIUM" },
+                { value: "Alta", enum: "HIGHT" },
               ]}
             />
           </div>

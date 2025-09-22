@@ -4,10 +4,13 @@ import { ArrowIcon, FormIcon, LabelIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import SelectInput from "../components/SelectInput";
 import Button from "../components/Button";
+import useAddTaskController from "../../hooks/useAddTaskController";
 
 const AddTask = () => {
+  const { register, handleSubmit } = useAddTaskController();
+
   return (
-    <div className="p-3 flex flex-col gap-4.5 w-full">
+    <form onSubmit={handleSubmit} className="p-3 flex flex-col gap-4.5 w-full">
       <div className="flex justify-between items-center">
         <Menu />
         <Link
@@ -34,6 +37,7 @@ const AddTask = () => {
 
         <div className="flex flex-col gap-2">
           <Input
+            {...register("title")}
             label="Título da Tarefa"
             placeholder="Digite o título da tarefa..."
             type="title"
@@ -44,6 +48,7 @@ const AddTask = () => {
               Descrição
             </label>
             <textarea
+              {...register("description")}
               id="description"
               className="w-full bg-[#F3F3F5] rounded-md px-2  focus:outline-none focus:ring-3 focus:ring-[#ccc]/90  focus:border-[#a1a1a1] transition-shadow border border-[#e0e1e4] text-xs h-15 pt-1"
               placeholder="Adicione um descrição (Opcional)..."
@@ -62,11 +67,12 @@ const AddTask = () => {
           <div>
             <span className="text-[11px] font-medium">Status</span>
             <SelectInput
-              placeholder="Não iniciada"
+              {...register("status")}
+              placeholder={{ value: "Não iniciada", enum: "NOT_STARTED" }}
               options={[
-                { value: "Não iniciada" },
-                { value: "Em progresso" },
-                { value: "Concluida" },
+                { value: "Não iniciada", enum: "NOT_STARTED" },
+                { value: "Em progresso", enum: "IN_PROGRESS" },
+                { value: "Concluida", enum: "DONE" },
               ]}
             />
           </div>
@@ -74,11 +80,12 @@ const AddTask = () => {
           <div>
             <span className="text-[11px] font-medium">Prioridade</span>
             <SelectInput
-              placeholder="Baixa"
+              {...register("priority")}
+              placeholder={{ value: "Baixa", enum: "LOW" }}
               options={[
-                { value: "Alta" },
-                { value: "Media" },
-                { value: "Baixa" },
+                { value: "Baixa", enum: "LOW" },
+                { value: "Media", enum: "MEDIUM" },
+                { value: "Alta", enum: "HIGHT" },
               ]}
             />
           </div>
@@ -90,10 +97,10 @@ const AddTask = () => {
           <button className="bg-white rounded-md border border-[#e0e1e4] hover:bg-[#e7e7e7] px-2 py-1 text-xs flex gap-1 items-center justify-center">
             Cancelar
           </button>
-          <Button screen="addTasks" text="Criar tarefa" />
+          <Button screen="addTasks" text="Criar tarefa" type="submit" />
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

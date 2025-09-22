@@ -1,4 +1,4 @@
-import api from "../lib/axios";
+import { publicApi } from "../lib/axios";
 
 export interface SigninBody {
   email: string;
@@ -10,7 +10,7 @@ interface SigninResponse {
 }
 
 const signin = async (body: SigninBody) => {
-  const { data } = await api.post<SigninResponse>("/auth/signin", body);
+  const { data } = await publicApi.post<SigninResponse>("/auth/signin", body);
 
   return data;
 };

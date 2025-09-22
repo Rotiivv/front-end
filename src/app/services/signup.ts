@@ -1,4 +1,4 @@
-import api from "../lib/axios";
+import { publicApi } from "../lib/axios";
 
 export interface SignupBody {
   name: string;
@@ -12,7 +12,7 @@ interface SignupResponse {
 
 const signup = async (body: SignupBody) => {
   // para ter acesso ao data, desestruturado do axios, precisa-se usar uma func async, pois o metodo retorna uma promisse.
-  const { data } = await api.post<SignupResponse>("/auth/signup", body);
+  const { data } = await publicApi.post<SignupResponse>("/auth/signup", body);
 
   return data;
 };

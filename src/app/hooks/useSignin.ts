@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import type { SigninBody } from "../services/signin";
 import signin from "../services/signin";
-import saveToken from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import token from "../utils/auth";
 
 const useSignin = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const useSignin = () => {
       return signin(data);
     },
     onSuccess: (data) => {
-      saveToken(data.accessToken);
+      token.save(data.accessToken);
       navigate("/dashboard");
       toast.success("Você realizou login com sucesso!");
     },

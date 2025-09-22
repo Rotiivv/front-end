@@ -1,5 +1,14 @@
-const saveToken = (token: string) => {
+export const saveToken = (token: string) => {
   localStorage.setItem("accessToken", token);
 };
 
-export default saveToken;
+const getToken = () => {
+  localStorage.getItem("accessToken");
+};
+
+const token = {
+  save: saveToken,
+  get: getToken,
+};
+
+export default token;
