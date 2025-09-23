@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { SearchIcon } from "../../assets/icons";
 import Input from "../components/Input";
-import SelectInput from "../components/SelectInput";
 import ViewSelector from "../components/ViewSelector";
 import TasksFlexView from "../components/TasksFlexView";
 import TasksGridView from "../components/TasksGridView";
 import { Link } from "react-router-dom";
 import Menu from "../components/Menu";
+import useTaskController from "../../hooks/useTaskController";
+import TasksSelectInput from "../components/TasksSelectInput";
+import useGetTasks from "../../app/hooks/useGetTask";
 
 const Tasks = () => {
-  const [state, setState] = useState("flex");
+  const [modeView, setMOdeView] = useState("flex");
+  const { register, handleSubmit } = useTaskController();
+  const { data: tasks } = useGetTasks();
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">
@@ -40,7 +44,9 @@ const Tasks = () => {
           />
 
           <div className="w-full flex gap-2 max-w-[260px]">
-            <SelectInput
+            <TasksSelectInput
+              handleSubmit={handleSubmit}
+              {...register("status")}
               placeholder={{ value: "Todos os status", enum: "" }}
               options={[
                 { value: "Todos os status", enum: "" },
@@ -49,7 +55,9 @@ const Tasks = () => {
                 { value: "Concluidas", enum: "DONE" },
               ]}
             />
-            <SelectInput
+            <TasksSelectInput
+              handleSubmit={handleSubmit}
+              {...register("priority")}
               placeholder={{ value: "Todas", enum: "" }}
               options={[
                 { value: "Todas", enum: "" },
@@ -60,10 +68,14 @@ const Tasks = () => {
             />
           </div>
 
-          <ViewSelector mode={state} funcChangeState={setState} />
+          <ViewSelector mode={modeView} funcChangeState={setMOdeView} />
         </div>
 
-        {state === "flex" ? <TasksFlexView /> : <TasksGridView />}
+        {modeView === "flex" ? (
+          <TasksFlexView tasks={tasks} />
+        ) : (
+          <TasksGridView />
+        )}
       </div>
     </div>
   );

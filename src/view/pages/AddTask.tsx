@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Menu from "../components/Menu";
 import { ArrowIcon, FormIcon, LabelIcon } from "../../assets/icons";
 import Input from "../components/Input";
-import SelectInput from "../components/SelectInput";
+import SelectInput from "../components/AddTaskSelectInput";
 import Button from "../components/Button";
 import useAddTaskController from "../../hooks/useAddTaskController";
 

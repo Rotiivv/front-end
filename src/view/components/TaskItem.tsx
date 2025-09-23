@@ -7,12 +7,13 @@ import {
   TrashIcon,
 } from "../../assets/icons";
 import { useState } from "react";
+import { TaskPriority, TaskStatus } from "../../app/services/getTasks";
 
 interface TaskItemProps {
   id: string;
   title: string;
-  status: "notStarted" | "inProgress" | "done";
-  priority: "low" | "medium" | "hight";
+  status: TaskStatus;
+  priority: TaskPriority;
 }
 
 const taskItemStyle = tv({
@@ -42,13 +43,13 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
 
   const handleTaskClick = () => {
     if (statusState === "notStarted") {
-      setStatusState("inProgress");
+      setStatusState(TaskStatus.IN_PROGRESS);
     }
     if (statusState === "inProgress") {
-      setStatusState("done");
+      setStatusState(TaskStatus.DONE);
     }
     if (statusState === "done") {
-      setStatusState("notStarted");
+      setStatusState(TaskStatus.NOT_STARTED);
     }
   };
 
@@ -68,7 +69,7 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
     <div className={taskItemStyle({ mode: statusState })}>
       <label
         htmlFor={id}
-        className="w-full h-full flex items-start gap-2.5 group select-none"
+        className="w-full h-full flex items-start gap-2.5 group select-none cursor-pointer"
         onClick={handleTaskClick}
       >
         <span className={taskStatusItemStyle({ mode: statusState })}>
@@ -79,11 +80,11 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
               <CheckIcon className="text-white h-3 w-3" />
             ))}
         </span>
-        <div className="flex flex-col gap-2">
-          <div className="text-xs font-medium flex justify-between">
+        <div className="flex flex-col gap-2 w-full">
+          <div className="text-xs font-medium flex justify-between w-full">
             <span className="max-w-[25ch] break-words">{title}</span>
 
-            <div className="opacity-0 flex group-hover:opacity-100 transition-all">
+            <div className="opacity-0 flex group-hover:opacity-100 w-fit transition-all">
               <button
                 onClick={(e) => handleTrashClick(e)}
                 className="hover:bg-[#FEF2F2] group/thrash flex items-center justify-center rounded-md h-6 w-6"

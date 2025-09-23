@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { tv } from "tailwind-variants";
 import { ChavronIcon, CheckIcon } from "../../assets/icons";
 import type { UseFormRegisterReturn } from "react-hook-form";
@@ -6,18 +6,21 @@ import type { UseFormRegisterReturn } from "react-hook-form";
 interface SelectInputProps extends UseFormRegisterReturn {
   placeholder?: { value: string; enum: string | undefined };
   options: { value: string; enum: string | undefined }[];
+  handleSubmit?: React.FormEventHandler<HTMLFormElement> | undefined;
 }
 
 const selectInputStyle = tv({
   base: "bg-[#F3F3F5] w-full rounded-md text-xs flex items-center justify-between px-2 py-1.5 ",
 });
 
-const SelectInput = ({
+const TasksSelectInput = ({
   placeholder,
   options,
   name,
   ref,
   onBlur,
+  onChange,
+  handleSubmit,
   ...props
 }: SelectInputProps) => {
   const [chosen, setChosen] = useState(placeholder);
@@ -25,7 +28,33 @@ const SelectInput = ({
 
   const handleClick = () => {
     setIsOpen(!isOpen);
-    options.map((option) => <h1>{option.enum}</h1>);
+  };
+
+  const handleOptionSelect = (option: {
+    value: string;
+    enum: string | undefined;
+  }) => {
+    setChosen(option);
+    setIsOpen(false);
+
+    if (onChange) {
+      onChange({
+        target: {
+          name: name,
+          value: option.enum,
+        },
+      });
+    }
+
+    // Executa o submit com o novo valor
+    if (handleSubmit) {
+      // Simula o evento de submit
+      const formEvent = {
+        preventDefault: () => {},
+        currentTarget: { [name]: { value: option.enum } },
+      } as FormEvent<HTMLFormElement>;
+      handleSubmit(formEvent);
+    }
   };
 
   const handleOutClick = (e: React.FocusEvent<HTMLButtonElement>) => {
@@ -52,12 +81,16 @@ const SelectInput = ({
         {<ChavronIcon className="h-3 w-3 text-gray-400" />}
       </button>
       {isOpen && (
-        <div className=" bg-white shadow-sm rounded-md w-full flex-col absolute top-8 z-10 border border-[#dbdbdb] p-1">
+        <form
+          onSubmit={handleSubmit}
+          className=" bg-white shadow-sm rounded-md w-full flex-col absolute top-8 z-10 border border-[#dbdbdb] p-1"
+        >
           {options.map((option) => (
-            <div
+            <button
+              type="submit"
               key={option.value}
               onClick={() => {
-                setChosen(option);
+                handleOptionSelect(option);
               }}
               className="text-left w-full text-xs hover:bg-[#E9EBEF] transition-all rounded-sm py-1 px-1 flex items-center justify-between"
             >
@@ -65,12 +98,12 @@ const SelectInput = ({
               {chosen?.value === option.value && (
                 <CheckIcon className="h-2 w-2" />
               )}
-            </div>
+            </button>
           ))}
-        </div>
+        </form>
       )}
     </div>
   );
 };
 
-export default SelectInput;
+export default TasksSelectInput;
