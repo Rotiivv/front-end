@@ -1,14 +1,19 @@
-export const saveToken = (token: string) => {
+const saveToken = (token: string) => {
   localStorage.setItem("accessToken", token);
 };
 
 const getToken = () => {
-  localStorage.getItem("accessToken");
+  return localStorage.getItem("accessToken");
+};
+
+const removeToken = () => {
+  return localStorage.removeItem("accessToken");
 };
 
 const token = {
   save: saveToken,
   get: getToken,
+  remove: removeToken,
 };
 
 export default token;

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { SigninBody } from "../services/signin";
 import signin from "../services/signin";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import token from "../utils/auth";
 
 const useSignin = () => {

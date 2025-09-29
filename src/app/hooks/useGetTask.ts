@@ -7,6 +7,8 @@ const useGetTasks = () => {
     queryFn: async () => {
       return getTasks();
     },
+    retry: 0,
+    retryOnMount: false,
   });
 };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import ViewSelector from "../components/ViewSelector";
@@ -9,11 +9,16 @@ import Menu from "../components/Menu";
 import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
 import useGetTasks from "../../app/hooks/useGetTask";
+import unauthorized from "../../app/services/unauthorized";
 
 const Tasks = () => {
   const [modeView, setMOdeView] = useState("flex");
   const { register, handleSubmit } = useTaskController();
-  const { data: tasks } = useGetTasks();
+  const { data: tasks, isError } = useGetTasks();
+
+  useEffect(() => {
+    unauthorized(isError);
+  }, [isError]);
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">

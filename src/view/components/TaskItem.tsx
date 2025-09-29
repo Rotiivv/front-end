@@ -28,7 +28,7 @@ const taskItemStyle = tv({
 });
 
 const taskStatusItemStyle = tv({
-  base: " h-4 w-4 rounded-full mt-0.75 transition-all flex items-center justify-center",
+  base: " h-4 w-4.5 rounded-full mt-0.75 transition-all flex items-center justify-center",
   variants: {
     mode: {
       notStarted: "border border-[#E5E7EB] hover:border-[#c3c7cd] ",
