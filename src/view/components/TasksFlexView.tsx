@@ -4,8 +4,12 @@ import unauthorized from "../../app/services/unauthorized";
 import mapDisplay from "../../app/utils/map";
 import TaskItem from "./TaskItem";
 
-const TasksFlexView = () => {
-  const { data: tasks, isError } = useGetTasks();
+interface TasksFlexViewProps {
+  params?: URLSearchParams;
+}
+
+const TasksFlexView = ({ params }: TasksFlexViewProps) => {
+  const { data: tasks, isError, refetch } = useGetTasks(params);
 
   useEffect(() => {
     unauthorized(isError);

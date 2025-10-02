@@ -20,9 +20,10 @@ export interface GetTasksResponse {
   status: TaskStatus;
 }
 
-const getTasks = async () => {
+const getTasks = async (params?: URLSearchParams) => {
+  console.log(`/tasks${`?${params?.toString()}`}`);
   const { data } = await privateApi.get<GetTasksResponse[] | undefined>(
-    "/tasks"
+    `/tasks${`?${params?.toString()}`}`
   );
   return data;
 };

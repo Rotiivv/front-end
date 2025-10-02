@@ -4,14 +4,16 @@ import Input from "../components/Input";
 import ViewSelector from "../components/ViewSelector";
 import TasksFlexView from "../components/TasksFlexView";
 import TasksGridView from "../components/TasksGridView";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Menu from "../components/Menu";
 import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
 
 const Tasks = () => {
   const [modeView, setModeView] = useState("flex");
-  const { register, handleSubmit } = useTaskController();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { register, handleSubmit } = useTaskController(setSearchParams);
+  console.log(searchParams.toString());
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">
@@ -69,7 +71,11 @@ const Tasks = () => {
           <ViewSelector mode={modeView} funcChangeState={setModeView} />
         </div>
 
-        {modeView === "flex" ? <TasksFlexView /> : <TasksGridView />}
+        {modeView === "flex" ? (
+          <TasksFlexView params={searchParams} />
+        ) : (
+          <TasksGridView />
+        )}
       </div>
     </div>
   );
