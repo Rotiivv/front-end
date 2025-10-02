@@ -8,6 +8,7 @@ import {
 } from "../../assets/icons";
 import { useState } from "react";
 import { TaskPriority, TaskStatus } from "../../app/services/getTasks";
+import useDeleteTask from "../../app/hooks/useDeleteTask";
 
 interface TaskItemProps {
   id: string;
@@ -41,6 +42,8 @@ const taskStatusItemStyle = tv({
 const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
   const [statusState, setStatusState] = useState(status);
 
+  const { mutate: deleteTask, isPending } = useDeleteTask();
+
   const handleTaskClick = () => {
     if (statusState === "notStarted") {
       setStatusState(TaskStatus.IN_PROGRESS);
@@ -57,6 +60,7 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event.stopPropagation();
+    deleteTask(id);
   };
 
   const handleDetailsClick = (
@@ -86,8 +90,9 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
 
             <div className="opacity-0 flex group-hover:opacity-100 w-fit transition-all">
               <button
+                disabled={isPending}
                 onClick={(e) => handleTrashClick(e)}
-                className="hover:bg-[#FEF2F2] group/thrash flex items-center justify-center rounded-md h-6 w-6"
+                className="hover:bg-[#FEF2F2] group/thrash flex items-center justify-center rounded-md h-6 w-6 disabled:cursor-not-allowed disabled:bg-[#FEF2F2]"
               >
                 <TrashIcon className="h-3 text-[#a7a7a7] group-hover/thrash:text-[#FB313B] transition-all" />
               </button>

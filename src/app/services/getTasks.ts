@@ -12,7 +12,7 @@ export enum TaskStatus {
   DONE = "done",
 }
 
-interface GetTasksResponse {
+export interface GetTasksResponse {
   id: string;
   title: string;
   description?: string;

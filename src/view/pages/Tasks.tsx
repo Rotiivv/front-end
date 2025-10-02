@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SearchIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import ViewSelector from "../components/ViewSelector";
@@ -8,17 +8,10 @@ import { Link } from "react-router-dom";
 import Menu from "../components/Menu";
 import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
-import useGetTasks from "../../app/hooks/useGetTask";
-import unauthorized from "../../app/services/unauthorized";
 
 const Tasks = () => {
-  const [modeView, setMOdeView] = useState("flex");
+  const [modeView, setModeView] = useState("flex");
   const { register, handleSubmit } = useTaskController();
-  const { data: tasks, isError } = useGetTasks();
-
-  useEffect(() => {
-    unauthorized(isError);
-  }, [isError]);
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">
@@ -73,14 +66,10 @@ const Tasks = () => {
             />
           </div>
 
-          <ViewSelector mode={modeView} funcChangeState={setMOdeView} />
+          <ViewSelector mode={modeView} funcChangeState={setModeView} />
         </div>
 
-        {modeView === "flex" ? (
-          <TasksFlexView tasks={tasks} />
-        ) : (
-          <TasksGridView />
-        )}
+        {modeView === "flex" ? <TasksFlexView /> : <TasksGridView />}
       </div>
     </div>
   );
