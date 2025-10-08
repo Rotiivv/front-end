@@ -8,12 +8,19 @@ import { Link, useSearchParams } from "react-router-dom";
 import Menu from "../components/Menu";
 import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
+import { useForm } from "react-hook-form";
 
 const Tasks = () => {
   const [modeView, setModeView] = useState("flex");
   const [searchParams, setSearchParams] = useSearchParams();
   const { register, handleSubmit } = useTaskController(setSearchParams);
-  console.log(searchParams.toString());
+  const {
+    watch,
+    register: inputRegister,
+    // formState: { isLoading },
+  } = useForm();
+
+  const search = watch("input");
 
   return (
     <div className="p-3 flex flex-col gap-4.5 w-full transition-all">
@@ -41,6 +48,7 @@ const Tasks = () => {
             placeholder="Buscar tarefas..."
             icon={<SearchIcon className="w-4 h-4 text-[#8b8b8b]" />}
             screen="tasks"
+            {...inputRegister("input")}
           />
 
           <div className="w-full flex gap-2 max-w-[260px]">
@@ -72,7 +80,7 @@ const Tasks = () => {
         </div>
 
         {modeView === "flex" ? (
-          <TasksFlexView params={searchParams} />
+          <TasksFlexView searched={search} params={searchParams} />
         ) : (
           <TasksGridView />
         )}

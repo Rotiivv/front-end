@@ -21,7 +21,6 @@ export interface GetTasksResponse {
 }
 
 const getTasks = async (params?: URLSearchParams) => {
-  console.log(`/tasks${`?${params?.toString()}`}`);
   const { data } = await privateApi.get<GetTasksResponse[] | undefined>(
     `/tasks${`?${params?.toString()}`}`
   );

@@ -84,7 +84,7 @@ const Register = () => {
               )}
 
               <Button
-                text="Log In"
+                text="Register"
                 className="mt-4"
                 isPending={isPending}
                 screen="auth"
@@ -94,7 +94,7 @@ const Register = () => {
             <p className="font-base text-sm text-[#51575d]">
               Ja possui conta?{" "}
               <Link to="/login" className="text-[#00ADB5] hover:underline">
-                Crie uma conta
+                Fazer login
               </Link>
             </p>
           </div>
