@@ -1,17 +1,30 @@
 import { useEffect } from "react";
-import useGetTasks from "../../app/hooks/useGetTask";
 import unauthorized from "../../app/services/unauthorized";
 import mapDisplay from "../../app/utils/map";
 import TaskItem from "./TaskItem";
+import type { GetTasksResponse } from "../../app/services/getTasks";
+import type {
+  QueryObserverResult,
+  RefetchOptions,
+} from "@tanstack/react-query";
 
 interface TasksFlexViewProps {
   params?: URLSearchParams;
   searched?: string;
+  tasks: GetTasksResponse[] | undefined;
+  isError: boolean;
+  refetch: (
+    options?: RefetchOptions | undefined
+  ) => Promise<QueryObserverResult<GetTasksResponse[] | undefined, Error>>;
 }
 
-const TasksFlexView = ({ params, searched }: TasksFlexViewProps) => {
-  const { data: tasks, isError, refetch } = useGetTasks(params);
-
+const TasksFlexView = ({
+  params,
+  searched,
+  tasks,
+  refetch,
+  isError,
+}: TasksFlexViewProps) => {
   const tasksOnDisplay = searched
     ? tasks?.filter((tasks) =>
         tasks.title.toLowerCase().includes(searched?.toLowerCase())

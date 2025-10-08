@@ -9,6 +9,7 @@ import Menu from "../components/Menu";
 import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
 import { useForm } from "react-hook-form";
+import useGetTasks from "../../app/hooks/useGetTask";
 
 const Tasks = () => {
   const [modeView, setModeView] = useState("flex");
@@ -19,6 +20,8 @@ const Tasks = () => {
     register: inputRegister,
     // formState: { isLoading },
   } = useForm();
+
+  const { data: tasks, isError, refetch } = useGetTasks(searchParams);
 
   const search = watch("input");
 
@@ -80,7 +83,12 @@ const Tasks = () => {
         </div>
 
         {modeView === "flex" ? (
-          <TasksFlexView searched={search} params={searchParams} />
+          <TasksFlexView
+            searched={search}
+            tasks={tasks}
+            isError={isError}
+            refetch={refetch}
+          />
         ) : (
           <TasksGridView />
         )}
