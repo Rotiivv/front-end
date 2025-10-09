@@ -6,12 +6,9 @@ export interface TaskFilters {
   status: string;
 }
 
-const useTaskController = (setSearchParams: SetURLSearchParams) => {
-  const {
-    register,
-    handleSubmit: handleHookFormSubmit,
-    watch,
-  } = useForm<TaskFilters>();
+const useTaskController = (setSearchedParams: SetURLSearchParams) => {
+  const { register, handleSubmit: handleHookFormSubmit } =
+    useForm<TaskFilters>();
 
   const handleSubmit = handleHookFormSubmit((data) => {
     const params = new URLSearchParams();
@@ -20,9 +17,9 @@ const useTaskController = (setSearchParams: SetURLSearchParams) => {
 
     if (data.status) params.set("status", data.status);
 
-    setSearchParams(params);
+    setSearchedParams(params);
   });
-  return { register, watch, handleSubmit };
+  return { register, handleSubmit };
 };
 
 export default useTaskController;

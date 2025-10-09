@@ -3,37 +3,19 @@ import unauthorized from "../../app/services/unauthorized";
 import mapDisplay from "../../app/utils/map";
 import TaskItem from "./TaskItem";
 import type { GetTasksResponse } from "../../app/services/getTasks";
-import type {
-  QueryObserverResult,
-  RefetchOptions,
-} from "@tanstack/react-query";
 
 interface TasksFlexViewProps {
-  params?: URLSearchParams;
   searched?: string;
   tasks: GetTasksResponse[] | undefined;
   isError: boolean;
-  refetch: (
-    options?: RefetchOptions | undefined
-  ) => Promise<QueryObserverResult<GetTasksResponse[] | undefined, Error>>;
 }
 
-const TasksFlexView = ({
-  params,
-  searched,
-  tasks,
-  refetch,
-  isError,
-}: TasksFlexViewProps) => {
+const TasksFlexView = ({ searched, tasks, isError }: TasksFlexViewProps) => {
   const tasksOnDisplay = searched
     ? tasks?.filter((tasks) =>
         tasks.title.toLowerCase().includes(searched?.toLowerCase())
       )
     : tasks;
-
-  useEffect(() => {
-    refetch();
-  }, [params, refetch]);
 
   useEffect(() => {
     unauthorized(isError);
@@ -48,7 +30,7 @@ const TasksFlexView = ({
       <div className="flex flex-col gap-3">
         {tasksOnDisplay?.length === 0 && (
           <p className="text-gray-700 text-xs text-center mt-[-8px]">
-            Não há tarefa com esse nome.
+            Não há tarefas com esse nome.
           </p>
         )}
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SearchIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import ViewSelector from "../components/ViewSelector";
@@ -13,16 +13,20 @@ import useGetTasks from "../../app/hooks/useGetTask";
 
 const Tasks = () => {
   const [modeView, setModeView] = useState("flex");
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { register, handleSubmit } = useTaskController(setSearchParams);
+  const [searchedParams, setSearchedParams] = useSearchParams();
+  const { register, handleSubmit } = useTaskController(setSearchedParams);
+
+  const { data: tasks, isError, refetch } = useGetTasks(searchedParams);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, searchedParams]);
+
   const {
     watch,
     register: inputRegister,
     // formState: { isLoading },
   } = useForm();
-
-  const { data: tasks, isError, refetch } = useGetTasks(searchParams);
-
   const search = watch("input");
 
   return (
@@ -83,14 +87,9 @@ const Tasks = () => {
         </div>
 
         {modeView === "flex" ? (
-          <TasksFlexView
-            searched={search}
-            tasks={tasks}
-            isError={isError}
-            refetch={refetch}
-          />
+          <TasksFlexView searched={search} tasks={tasks} isError={isError} />
         ) : (
-          <TasksGridView />
+          <TasksGridView searched={search} tasks={tasks} isError={isError} />
         )}
       </div>
     </div>
