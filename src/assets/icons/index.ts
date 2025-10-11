@@ -20,6 +20,9 @@ import PlayIcon from "./Play.svg?react";
 import ArrowIcon from "./Arrow.svg?react";
 import FormIcon from "./Form.svg?react";
 import LabelIcon from "./Label.svg?react";
+import HomeIcon from "./Home.svg?react";
+import TasksIcon from "./Tasks.svg?react";
+import ExitIcon from "./Exit.svg?react";
 
 export {
   CheckBoxIcon,
@@ -44,4 +47,7 @@ export {
   ArrowIcon,
   LabelIcon,
   SaveIcon,
+  HomeIcon,
+  TasksIcon,
+  ExitIcon,
 };
