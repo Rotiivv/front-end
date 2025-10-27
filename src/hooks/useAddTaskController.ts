@@ -11,7 +11,6 @@ const useAddTaskController = () => {
   const { mutate, isPending } = useAddTask();
 
   const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log(data);
     mutate(data);
   });
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import Menu from "../components/Menu";
-import { ArrowIcon, FormIcon, LabelIcon } from "../../assets/icons";
+import { ArrowIcon, FormIcon, LabelIcon, SaveIcon } from "../../assets/icons";
 import Input from "../components/Input";
 import SelectInput from "../components/AddTaskSelectInput";
 import Button from "../components/Button";
@@ -11,17 +10,6 @@ const AddTask = () => {
 
   return (
     <form onSubmit={handleSubmit} className="p-3 flex flex-col gap-4.5 w-full">
-      <div className="flex justify-between items-center">
-        <Menu />
-        <Link
-          to="/tasks"
-          className="bg-white rounded-md border border-[#e0e1e4] hover:bg-[#e7e7e7] px-2 py-1 text-xs flex gap-1 items-center justify-center"
-        >
-          <ArrowIcon className="h-3 w-3 mt-0.5" />
-          Voltar
-        </Link>
-      </div>
-
       <div>
         <h1 className="font-medium text-xl">Nova Tarefa</h1>
         <p className="text-[13px] text-gray-600">
@@ -94,10 +82,22 @@ const AddTask = () => {
 
       <div className="flex items-center p-3.5 rounded-lg shadow-sm bg-white w-full justify-end">
         <div className="flex gap-2 ">
-          <button className="bg-white rounded-md border border-[#e0e1e4] hover:bg-[#e7e7e7] px-2 py-1 text-xs flex gap-1 items-center justify-center">
+          {/* <button className="bg-white rounded-md border border-[#e0e1e4] hover:bg-[#e7e7e7] px-2 py-1 text-xs flex gap-1 items-center justify-center">
             Cancelar
-          </button>
-          <Button screen="addTasks" text="Criar tarefa" type="submit" />
+          </button> */}
+          <Link
+            to="/tasks"
+            className="bg-white rounded-md border border-[#e0e1e4] hover:bg-[#e7e7e7] px-2 py-1 text-xs flex gap-1 items-center justify-center"
+          >
+            <ArrowIcon className="h-3 w-3 mt-0.5" />
+            Voltar
+          </Link>
+          <Button
+            screen="addTasks"
+            text="Criar tarefa"
+            type="submit"
+            icon={<SaveIcon className="h-3.5 w-3.5" />}
+          />
         </div>
       </div>
     </form>

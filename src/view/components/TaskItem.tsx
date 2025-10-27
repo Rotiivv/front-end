@@ -6,9 +6,14 @@ import {
   SpinIcon,
   TrashIcon,
 } from "../../assets/icons";
-import { useState } from "react";
-import { TaskPriority, TaskStatus } from "../../app/services/getTasks";
+import { useEffect, useState } from "react";
+import {
+  TaskPriority,
+  TaskStatus,
+  type GetTasksResponse,
+} from "../../app/services/getTasks";
 import useDeleteTask from "../../app/hooks/useDeleteTask";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface TaskItemProps {
   id: string;
@@ -40,6 +45,7 @@ const taskStatusItemStyle = tv({
 });
 
 const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
+  const queryClient = useQueryClient();
   const [statusState, setStatusState] = useState(status);
 
   const { mutate: deleteTask, isPending } = useDeleteTask();
@@ -68,6 +74,21 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
   ) => {
     event.stopPropagation();
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      queryClient.setQueryData(
+        ["get-tasks"],
+        (currentTasks: GetTasksResponse[]) => {
+          currentTasks.map((currentTask) => {
+            if (currentTask?.id === id) {
+              currentTask.status = statusState;
+            }
+          });
+        }
+      );
+    }, 500);
+  }, [statusState, queryClient, id]);
 
   return (
     <div className={taskItemStyle({ mode: statusState })}>

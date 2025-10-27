@@ -7,7 +7,12 @@ export const publicApi = axios.create({
 
 export const privateApi = axios.create({
   baseURL: "http://localhost:3000",
-  headers: {
-    Authorization: `Bearer ${token.get()}`,
-  },
+});
+
+privateApi.interceptors.request.use((config) => {
+  const tokeen = token.get();
+
+  if (tokeen) config.headers.Authorization = `Bearer ${tokeen}`;
+
+  return config;
 });

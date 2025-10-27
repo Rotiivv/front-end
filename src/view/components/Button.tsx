@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { tv } from "tailwind-variants";
-import { LoaderIcon, SaveIcon } from "../../assets/icons";
+import { LoaderIcon } from "../../assets/icons";
 
 interface ButtonProps extends ComponentProps<"button"> {
   text: string;
@@ -15,6 +15,7 @@ const Button = ({
   className,
   isPending,
   screen,
+  icon,
   ...props
 }: ButtonProps) => {
   const buttonStyle = tv({
@@ -39,7 +40,7 @@ const Button = ({
           {isPending ? (
             <LoaderIcon className="animate-spin" />
           ) : (
-            <SaveIcon className="h-3 ml-[-5px]" />
+            <div>{icon}</div>
           )}
           {text}
         </button>

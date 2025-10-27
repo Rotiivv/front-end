@@ -4,6 +4,7 @@ import Login from "../view/pages/Login";
 import Register from "../view/pages/Register";
 import Tasks from "../view/pages/Tasks";
 import AddTask from "../view/pages/AddTask";
+import Dashboard from "../view/pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "dashboard",
-        element: <h1>Dashboard</h1>,
+        element: <Dashboard />,
       },
       {
         path: "tasks",

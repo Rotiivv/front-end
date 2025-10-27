@@ -10,6 +10,7 @@ import useTaskController from "../../hooks/useTaskController";
 import TasksSelectInput from "../components/TasksSelectInput";
 import { useForm } from "react-hook-form";
 import useGetTasks from "../../app/hooks/useGetTasks";
+import unauthorized from "@/app/services/unauthorized";
 
 const Tasks = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,10 @@ const Tasks = () => {
   const { register, handleSubmit } = useTaskController(setSearchedParams);
 
   const { data: tasks, isError, refetch } = useGetTasks(searchedParams);
+
+  useEffect(() => {
+    unauthorized(isError);
+  }, [isError]);
 
   useEffect(() => {
     refetch();
@@ -93,9 +98,9 @@ const Tasks = () => {
           </div>
 
           {modeView === "flex" ? (
-            <TasksFlexView searched={search} tasks={tasks} isError={isError} />
+            <TasksFlexView searched={search} tasks={tasks} />
           ) : (
-            <TasksGridView searched={search} tasks={tasks} isError={isError} />
+            <TasksGridView searched={search} tasks={tasks} />
           )}
         </div>
       </div>

@@ -2,16 +2,13 @@ import { type GetTasksResponse } from "../../app/services/getTasks";
 import mapDisplay from "../../app/utils/map";
 import { CheckBoxIcon, DangerIcon, PlayIcon } from "../../assets/icons";
 import TaskItem from "./TaskItem";
-import { useEffect } from "react";
-import unauthorized from "../../app/services/unauthorized";
 
 interface TaskGridViewProps {
   tasks: GetTasksResponse[] | undefined;
   searched?: string;
-  isError: boolean;
 }
 
-const TasksGridView = ({ tasks, searched, isError }: TaskGridViewProps) => {
+const TasksGridView = ({ tasks, searched }: TaskGridViewProps) => {
   const tasksOnDisplay = searched
     ? tasks?.filter((tasks) =>
         tasks.title.toLowerCase().includes(searched?.toLowerCase())
@@ -28,10 +25,6 @@ const TasksGridView = ({ tasks, searched, isError }: TaskGridViewProps) => {
     (task) => mapDisplay.status(task.status) === "done"
   );
 
-  useEffect(() => {
-    unauthorized(isError);
-  }, [isError]);
-
   return (
     <div className="flex flex-col gap-5">
       <div className="bg-white rounded-lg p-3.5 shadow-sm space-y-6">
@@ -45,7 +38,7 @@ const TasksGridView = ({ tasks, searched, isError }: TaskGridViewProps) => {
         <div className="flex flex-col gap-3">
           {notStartedTasks?.length === 0 && (
             <p className="text-gray-700 text-xs text-center mt-[-8px]">
-              Não há tarefas com esse nome.
+              Não há tarefas com esse status
             </p>
           )}
 
@@ -73,7 +66,7 @@ const TasksGridView = ({ tasks, searched, isError }: TaskGridViewProps) => {
         <div className="flex flex-col gap-3">
           {inProgressTasks?.length === 0 && (
             <p className="text-gray-700 text-xs text-center mt-[-8px]">
-              Não há tarefas com esse nome.
+              Não há tarefas com esse status.
             </p>
           )}
 
@@ -98,7 +91,7 @@ const TasksGridView = ({ tasks, searched, isError }: TaskGridViewProps) => {
         <div className="flex flex-col gap-3">
           {doneTasks?.length === 0 && (
             <p className="text-gray-700 text-xs text-center mt-[-8px]">
-              Não há tarefas com esse nome.
+              Não há tarefas com esse status.
             </p>
           )}
 

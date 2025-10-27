@@ -32,7 +32,7 @@ const Menu = ({ param, setIsOpen, ...props }: MenuProps) => {
 
   return (
     <>
-      <div className={`pl-3 pt-3 ${param ? "hidden" : "block"} `}>
+      <div className={`pl-3 pt-3`}>
         <button
           {...props}
           className="bg-white w-fit p-2 rounded-lg border border-[#e0e1e4] hover:bg-[#e7e7e7]
@@ -46,7 +46,7 @@ const Menu = ({ param, setIsOpen, ...props }: MenuProps) => {
           onClick={() => setIsOpen(false)}
           className={`${
             param
-              ? "h-screen w-screen bg-black opacity-40 z-40 fixed"
+              ? "h-screen w-screen bg-black opacity-40 z-40 fixed top-0 left-0"
               : "hidden"
           }`}
         ></div>
