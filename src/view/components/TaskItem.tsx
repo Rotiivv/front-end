@@ -6,18 +6,15 @@ import {
   SpinIcon,
   TrashIcon,
 } from "../../assets/icons";
-import { useEffect, useState } from "react";
-import {
-  TaskPriority,
-  TaskStatus,
-  type GetTasksResponse,
-} from "../../app/services/getTasks";
+import { useState } from "react";
+import { TaskPriority, TaskStatus } from "../../app/services/getTasks";
 import useDeleteTask from "../../app/hooks/useDeleteTask";
-import { useQueryClient } from "@tanstack/react-query";
+import useUpdateTask from "@/app/hooks/useUpdateTask";
 
 interface TaskItemProps {
   id: string;
   title: string;
+  description?: string;
   status: TaskStatus;
   priority: TaskPriority;
 }
@@ -44,21 +41,30 @@ const taskStatusItemStyle = tv({
   },
 });
 
-const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
-  const queryClient = useQueryClient();
+const TaskItem = ({
+  title,
+  description,
+  status,
+  priority,
+  id,
+}: TaskItemProps) => {
   const [statusState, setStatusState] = useState(status);
 
   const { mutate: deleteTask, isPending } = useDeleteTask();
+  const { mutate: updateTask } = useUpdateTask();
 
-  const handleTaskClick = () => {
+  const handleTaskClick = async () => {
     if (statusState === "notStarted") {
       setStatusState(TaskStatus.IN_PROGRESS);
+      updateTask({ id, title, description, priority, status: "inProgress" });
     }
     if (statusState === "inProgress") {
       setStatusState(TaskStatus.DONE);
+      updateTask({ title, description, priority, id, status: "done" });
     }
     if (statusState === "done") {
       setStatusState(TaskStatus.NOT_STARTED);
+      updateTask({ title, description, priority, id, status: "notStarted" });
     }
   };
 
@@ -74,21 +80,6 @@ const TaskItem = ({ title, status, priority, id }: TaskItemProps) => {
   ) => {
     event.stopPropagation();
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      queryClient.setQueryData(
-        ["get-tasks"],
-        (currentTasks: GetTasksResponse[]) => {
-          currentTasks.map((currentTask) => {
-            if (currentTask?.id === id) {
-              currentTask.status = statusState;
-            }
-          });
-        }
-      );
-    }, 500);
-  }, [statusState, queryClient, id]);
 
   return (
     <div className={taskItemStyle({ mode: statusState })}>

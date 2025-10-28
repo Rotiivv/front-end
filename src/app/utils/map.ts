@@ -13,6 +13,7 @@ const priority = (priority: string) => {
   if (priority === "HIGHT") return TaskPriority.HIGHT;
   return TaskPriority.LOW;
 };
+
 const mapDisplay = {
   status,
   priority,

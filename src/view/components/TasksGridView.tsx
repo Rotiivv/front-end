@@ -75,6 +75,7 @@ const TasksGridView = ({ tasks, searched }: TaskGridViewProps) => {
               key={task.id}
               id={task.id}
               title={task.title}
+              description={task?.description}
               priority={mapDisplay.priority(task.priority)}
               status={mapDisplay.status(task.status)}
             />

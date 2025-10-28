@@ -33,15 +33,18 @@ const TasksFlexView = ({ searched, tasks }: TasksFlexViewProps) => {
           </p>
         )}
 
-        {tasksOnDisplay?.map((task) => (
-          <TaskItem
-            key={task?.id}
-            id={task?.id}
-            title={task?.title}
-            priority={mapDisplay.priority(task?.priority)}
-            status={mapDisplay.status(task.status)}
-          />
-        ))}
+        {tasksOnDisplay?.map((task) => {
+          return (
+            <TaskItem
+              key={task?.id}
+              id={task?.id}
+              title={task?.title}
+              description={task?.description}
+              priority={mapDisplay.priority(task?.priority)}
+              status={mapDisplay.status(task.status)}
+            />
+          );
+        })}
       </div>
     </div>
   );

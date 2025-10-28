@@ -2,11 +2,11 @@ import axios from "axios";
 import token from "../utils/auth";
 
 export const publicApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const privateApi = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 privateApi.interceptors.request.use((config) => {
